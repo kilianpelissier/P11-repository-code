@@ -40,12 +40,8 @@ public class HospitalControllerTest {
         hospital.setGps("45.123, -75.123");
         hospital.setNumberBed(100);
         hospital.setNumberFreeBed(50);
-    
-        // Convertissez l'objet Hospital en JSON
         ObjectMapper objectMapper = new ObjectMapper();
         String hospitalJson = objectMapper.writeValueAsString(hospital);
-    
-        // Envoyez une requête POST à /hospital avec le JSON de l'hôpital
         mockMvc.perform(post("/hospital")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(hospitalJson))
