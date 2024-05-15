@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.medhead.api.model.Hospital;
 import com.medhead.api.repository.HospitalRepository;
-import com.medhead.api.exception.ResourceNotFoundException;
 import com.medhead.api.model.Specialization;
 import java.util.Set;
 
