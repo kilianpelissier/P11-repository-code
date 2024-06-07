@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+// import MappingJackson2HttpMessageConverter
 
 import com.medhead.api.model.Hospital;
 import com.medhead.api.model.Specialization;
@@ -31,7 +33,7 @@ public class HospitalController {
         return hospitalService.getHospitals();
     }
 
-    @PostMapping("/hospital")
+    @PostMapping(value = "/saveHospital", consumes = "application/json;charset=UTF-8")
     public Hospital saveHospital(@RequestBody Hospital hospital) {
         return hospitalService.saveHospital(hospital);
     }

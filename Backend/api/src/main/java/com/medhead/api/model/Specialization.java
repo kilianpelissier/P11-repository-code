@@ -3,6 +3,9 @@ package com.medhead.api.model;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import java.util.Set;
 
@@ -10,6 +13,7 @@ import lombok.Data;
 
 @Data
 @Entity
+@JsonIgnoreProperties({"hospitals"})
 @Table(name = "SPECIALIZATION")
 public class Specialization {
     @Id

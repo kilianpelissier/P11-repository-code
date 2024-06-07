@@ -2,6 +2,7 @@ package com.medhead.api.model;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.util.Set;
@@ -12,8 +13,10 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
+@JsonIgnoreProperties({"specializations"})
 @Table(name = "HOSPITAL")
-public class Hospital {    
+public class Hospital {
+    // ...
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
         @Column(name = "id")
@@ -34,7 +37,8 @@ public class Hospital {
         @Column(name = "numberFreeBed")
         private int numberFreeBed;
 
-        @ManyToMany(fetch = FetchType.EAGER)
+        @ElementCollection(fetch = FetchType.EAGER)
+        @ManyToMany
         @JoinTable(name = "SPECIALIZATION_HOSPITAL",
         joinColumns = @JoinColumn(name = "ID_HOSPITAL"),
         inverseJoinColumns = @JoinColumn(name = "ID_SPECIALIZATION"))

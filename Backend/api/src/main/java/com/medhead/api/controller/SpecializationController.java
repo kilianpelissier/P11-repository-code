@@ -24,7 +24,7 @@ public class SpecializationController {
         return specializationService.getSpecializations();
     }
     
-    @PostMapping("/specialization")
+    @PostMapping("/saveSpecialization")
     public Specialization saveSpecialization(@RequestBody Specialization specialization) {
         return specializationService.saveSpecialization(specialization);
     }
@@ -34,7 +34,7 @@ public class SpecializationController {
         return specializationService.getSpecialization(id);
     }
 
-    @PutMapping("/specialization")
+    @PutMapping("/put/specialization")
     public Specialization updateSpecialization(@RequestBody Specialization specialization) {
         return specializationService.saveSpecialization(specialization);
     }

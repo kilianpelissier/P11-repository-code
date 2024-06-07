@@ -28,7 +28,7 @@ public class HospitalControllerTest {
     public void testGetHospitals() throws Exception {
         mockMvc.perform(get("/hospitals"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].id", is(1)));
+                .andExpect(jsonPath("$[0].id", is(2)));
     }
 
     @Test
@@ -42,7 +42,7 @@ public class HospitalControllerTest {
         hospital.setNumberFreeBed(50);
         ObjectMapper objectMapper = new ObjectMapper();
         String hospitalJson = objectMapper.writeValueAsString(hospital);
-        mockMvc.perform(post("/hospital")
+        mockMvc.perform(post("/saveHospital")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(hospitalJson))
                 .andExpect(status().isOk())
@@ -56,7 +56,7 @@ public class HospitalControllerTest {
         hospital.setName("Updated Test Hospital");
         // set other properties of hospital
 
-        mockMvc.perform(put("/hospital")
+        mockMvc.perform(put("/put/hospital")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(hospital)))
                 .andExpect(status().isOk())

@@ -4,6 +4,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.medhead.api.exception.ResourceNotFoundException;
 import com.medhead.api.model.Hospital;
 import com.medhead.api.repository.HospitalRepository;
 import com.medhead.api.model.Specialization;
@@ -35,11 +37,10 @@ public class HospitalService {
 
     public Set<Specialization> getHospitalSpecializations(int id) {
         Optional<Hospital> hospital = hospitalRepository.findById(id);
-        return hospital.get().getSpecializations();
-        // if (hospital.isPresent()) {
-        //     return hospital.get().getSpecializations();
-        // } else {
-        //     throw new ResourceNotFoundException("Hospital", "id", id);
-        // }
+        if (hospital.isPresent()) {
+            return hospital.get().getSpecializations();
+        } else {
+            throw new ResourceNotFoundException("Hospital", "id", id);
+        }
     }
 }
