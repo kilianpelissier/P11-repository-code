@@ -80,5 +80,8 @@ public class HospitalController {
             throw new RuntimeException("Error calling TrueWay Matrix API", e);
         }
     }
-
+    @GetMapping("/hospitals/specialization/{specializationId}")
+    public Iterable<Hospital> getHospitalsBySpecialization(@PathVariable int specializationId) {
+        return hospitalService.getHospitalsBySpecialization(specializationId);
+    }
 }

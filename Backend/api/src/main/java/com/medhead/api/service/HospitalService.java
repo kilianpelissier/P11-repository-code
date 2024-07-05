@@ -7,8 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.medhead.api.exception.ResourceNotFoundException;
 import com.medhead.api.model.Hospital;
-import com.medhead.api.repository.HospitalRepository;
 import com.medhead.api.model.Specialization;
+import com.medhead.api.repository.HospitalRepository;
+import com.medhead.api.repository.SpecializationRepository;
 import java.util.Set;
 
 import lombok.Data;
@@ -18,6 +19,9 @@ import lombok.Data;
 public class HospitalService {
     @Autowired
     private HospitalRepository hospitalRepository;
+
+    @Autowired
+    private SpecializationRepository specializationRepository; // Ajouté
 
     public Iterable<Hospital> getHospitals() {
         return hospitalRepository.findAll();
@@ -42,5 +46,11 @@ public class HospitalService {
         } else {
             throw new ResourceNotFoundException("Hospital", "id", id);
         }
+    }
+
+    public Set<Hospital> getHospitalsBySpecialization(Integer specializationId) {
+        Specialization specialization = specializationRepository.findById(specializationId)
+        .orElseThrow(() -> new RuntimeException("Specialization not found"));
+        return specialization.getHospitals();
     }
 }
