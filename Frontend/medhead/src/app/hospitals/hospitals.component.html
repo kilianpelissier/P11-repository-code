@@ -1,0 +1,13 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <select formControlName="hospital">
+      <option *ngFor="let hospital of hospitals" [value]="hospital.id">{{hospital.name}}</option>
+    </select>
+    <select formControlName="specialization">
+      <option *ngFor="let specialization of specializations" [value]="specialization.id">{{specialization.libelle}}</option>
+    </select>
+    <button (click)="onSubmit()">Trouver l'hôpital le plus proche</button>
+  </form>
+  
+  <div *ngIf="closestHospital">
+    L'hôpital le plus proche est: {{closestHospital}}
+  </div>
