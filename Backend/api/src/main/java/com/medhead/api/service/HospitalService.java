@@ -34,10 +34,16 @@ public class HospitalService {
     public Hospital saveHospital(Hospital hospital) {
         return hospitalRepository.save(hospital);
     }
-
-    public void deleteHospital(int id) {
-        hospitalRepository.deleteById(id);
+    // delete function, return 1 if success, 0 if failed
+    public boolean deleteHospital(int id) {
+        try {
+            hospitalRepository.deleteById(id);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
+
 
     public Set<Specialization> getHospitalSpecializations(int id) {
         Optional<Hospital> hospital = hospitalRepository.findById(id);
