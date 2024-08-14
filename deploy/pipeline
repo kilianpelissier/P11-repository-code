@@ -46,7 +46,7 @@ pipeline {
                 branch 'main'
             }
             steps {
-                // Déployer l'application (ajustez cette étape selon vos besoins)
+                // Déployer l'application (non requis au niveau de ce projet)
                 sh 'echo "Déploiement de l\'application..."'
             }
         }
