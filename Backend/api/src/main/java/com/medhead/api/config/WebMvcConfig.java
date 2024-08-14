@@ -11,6 +11,7 @@ import java.util.List;
 public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
+    // Configure Jackson to convert JSON to Java objects
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         converters.add(new MappingJackson2HttpMessageConverter());
     }

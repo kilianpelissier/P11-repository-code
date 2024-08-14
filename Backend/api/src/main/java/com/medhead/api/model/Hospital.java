@@ -44,14 +44,5 @@ public class Hospital {
         inverseJoinColumns = @JoinColumn(name = "ID_SPECIALIZATION"))
         @EqualsAndHashCode.Exclude
         @JsonManagedReference
-        private Set<Specialization> specializations;
-        
-        // public Hospital(String name, String address, String gps, int numberBed, int numberFreeBed) {
-        //     this.name = name;
-        //     this.address = address;
-        //     this.gps = gps;
-        //     this.numberBed = numberBed;
-        //     this.numberFreeBed = numberFreeBed;
-        // }
-    
+        private Set<Specialization> specializations;   
 }
