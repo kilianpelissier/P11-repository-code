@@ -9,6 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class CorsConfig {
 
     @Bean
+    // Configure CORS (Cross-Origin Resource Sharing) to allow requests from the Angular frontend
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override
