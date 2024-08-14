@@ -4,6 +4,8 @@
 
 Ce projet est une preuve de concept pour le consortium MedHead. Il s'agit d'une application de gestion des lits d'hôpitaux et des spécialités médicales dans un contexte d'intervention d'urgence, développée pour démontrer l'architecture cible en utilisant des technologies robustes telles que Spring Boot pour le backend, Angular pour le frontend, et MySQL comme base de données.
 
+![Interface Exemple](./Frontend/interface_exemple.png)
+
 ## Table des matières
 
 - [Technologies Utilisées](#technologies-utilisées)
@@ -93,6 +95,7 @@ mvn spring-boot:run
 ```
 
 L'API sera disponible à l'adresse http://localhost:9000.
+
 **Frontend**
 
 Pour exécuter l'application Angular :
