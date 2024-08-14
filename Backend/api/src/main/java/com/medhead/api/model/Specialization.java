@@ -30,9 +30,4 @@ public class Specialization {
     @ManyToMany(mappedBy = "specializations")
     @JsonBackReference
     private Set<Hospital> hospitals;
-
-    // public Specialization(String libelle, String libgroup) {
-    //     this.libelle = libelle;
-    //     this.libgroup = libgroup;
-    // }
 }

@@ -1,13 +1,41 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <select formControlName="hospital">
-      <option *ngFor="let hospital of hospitals" [value]="hospital.id">{{hospital.name}}</option>
-    </select>
-    <select formControlName="specialization">
-      <option *ngFor="let specialization of specializations" [value]="specialization.id">{{specialization.libelle}}</option>
-    </select>
-    <button (click)="onSubmit()">Trouver l'hôpital le plus proche</button>
-  </form>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="card p-4">
+          <div class="mb-3">
+            <label for="hospitalSelect" class="form-label">Hôpital le plus proche</label><br>
+            <select formControlName="hospital" id="hospitalSelect" class="form-select">
+              <option *ngFor="let hospital of hospitals" [value]="hospital.id">{{hospital.name}}</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="specializationSelect" class="form-label">Spécialisation recherchée</label>
+            <select formControlName="specialization" id="specializationSelect" class="form-select">
+              <option *ngFor="let specialization of specializations" [value]="specialization.id">{{specialization.libelle}}</option>
+            </select>
+          </div>
+          <div class="text-center">
+            <button type="submit" class="btn btn-info">Trouver l'hôpital le plus proche</button>
+          </div>
+        </form>
+      </div>
+    </div>
   
-  <div *ngIf="closestHospital">
-    L'hôpital le plus proche est: {{closestHospital}}
+    <!-- Indicateur de chargement -->
+    <div class="row justify-content-center mt-4" *ngIf="isLoading">
+      <div class="spinner-border text-info" role="status">
+        <span class="visually-hidden"></span>
+      </div>
+    </div>
+  
+    <div class="row justify-content-center mt-4">
+      <div class="col-md-6" *ngIf="closestHospital && !isLoading">
+        <div class="card p-4">
+          <p>L'hôpital le plus proche est: <strong>{{closestHospital}}</strong></p>
+          <p>A la distance de: <strong>{{distance}} km</strong> pour {{time}} minutes</p>
+          <!-- <p>les coordonnées sont {{coordonates}}</p> format x,y -->
+          <p>Adresse: <strong>{{address}}</strong></p>
+        </div>
+      </div>
+    </div>
   </div>

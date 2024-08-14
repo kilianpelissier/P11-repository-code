@@ -18,11 +18,11 @@ public class ApiKeyFilter implements javax.servlet.Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        // Initialization logic if needed
-        System.err.println("API Key from environment: " + API_KEY);
+        // Initialization
     }
 
     @Override
+    // Filter requests based on the API key
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
@@ -37,7 +37,7 @@ public class ApiKeyFilter implements javax.servlet.Filter {
             chain.doFilter(request, response);
             return;
         }
-
+        // Check if the API key is valid
         if (API_KEY != null && API_KEY.equals(apiKey)) {
             chain.doFilter(request, response);
         } else {
@@ -48,6 +48,6 @@ public class ApiKeyFilter implements javax.servlet.Filter {
 
     @Override
     public void destroy() {
-        // Cleanup logic if needed
+        // Cleanup
     }
 }

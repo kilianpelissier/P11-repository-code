@@ -27,8 +27,13 @@ public class SpecializationService {
     public Specialization saveSpecialization(Specialization specialization) {
         return specializationRepository.save(specialization);
     }
-
-    public void deleteSpecialization(int id) {
-        specializationRepository.deleteById(id);
+    // delete function, return 1 if success, 0 if failed
+    public boolean deleteSpecialization(int id) {
+        try {
+            specializationRepository.deleteById(id);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

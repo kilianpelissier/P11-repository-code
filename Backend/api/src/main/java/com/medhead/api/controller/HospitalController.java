@@ -58,6 +58,8 @@ public class HospitalController {
         return hospitalService.getHospitalSpecializations(id);
     }
 
+    // Get the distance between two hospitals, using the TrueWay Matrix API (https://www.trueway-matrix.com/)
+    // The API key is provided in the header
     @GetMapping("/distance/{hospitalSource}/{hospitalDest}")
     public String getDistance(@PathVariable int hospitalSource, @PathVariable int hospitalDest) {
         // Get the source and destination 

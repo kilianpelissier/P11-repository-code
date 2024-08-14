@@ -9,15 +9,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class CorsConfig {
 
     @Bean
+    // Configure CORS (Cross-Origin Resource Sharing) to allow requests from the Angular frontend
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**") // Autoriser les requêtes CORS pour tous les chemins
-                        .allowedOrigins("http://localhost:4200") // Autoriser les requêtes CORS depuis le domaine spécifié
-                        .allowedMethods("GET", "POST", "PUT", "DELETE") // Méthodes HTTP autorisées
-                        .allowedHeaders("*") // En-têtes autorisés
-                        .allowCredentials(true); // Autoriser les cookies
+                registry.addMapping("/**")
+                        .allowedOrigins("http://localhost:4200")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                        .allowedHeaders("X-API-KEY", "Content-Type", "Authorization")
+                        .allowCredentials(true);
             }
         };
     }
