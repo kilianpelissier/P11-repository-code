@@ -17,6 +17,7 @@ export class HospitalsComponent implements OnInit {
   address: string = '';
   time: number = 0;
   isLoading = false;
+  numberFreeBed: number = 0;
 
   private apiKey = '203f16bd-d289-452c-9371-b0e042a64ef4';
   private headers = new HttpHeaders().set('X-API-KEY', this.apiKey);
@@ -56,6 +57,7 @@ export class HospitalsComponent implements OnInit {
     let coordonatesClosestHospital = [];
     let addressClosestHospital = "";
     let timeToHospital = 0;
+    let numberFreeBed = 0;
     
     // Fonction de délai
     const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
@@ -79,14 +81,17 @@ export class HospitalsComponent implements OnInit {
           closestHospitalName = hospital.name;
           coordonatesClosestHospital = hospital.gps;
           addressClosestHospital = hospital.address;
-          timeToHospital = response.distances[0][1];
+          timeToHospital = response.durations[0][0];
+          numberFreeBed = hospital.numberFreeBed;
         }
       }
-    }
+    } 
     this.closestHospital = closestHospitalName;
     this.distance = closestDistance / 1000;
     this.coordonates = coordonatesClosestHospital;
     this.address = addressClosestHospital;
-    this.time = (timeToHospital / 1000) / 60;
+    // cut to 2 decimals
+    this.time = Math.round(timeToHospital / 60);
+    this.numberFreeBed = numberFreeBed;
   }
 }
