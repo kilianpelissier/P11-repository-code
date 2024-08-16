@@ -83,6 +83,13 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
+      - name: Build backend JAR
+        run: ./mvnw package -DskipTests
+        working-directory: ./Backend/api
+
+      - name: Verify JAR file exists
+        run: ls -l ./Backend/api/target/*.jar
+
       - name: Build and push backend Docker image
         run: |
           echo "FROM openjdk:11-jre-slim" > Dockerfile
@@ -100,4 +107,3 @@ jobs:
           echo "COPY ./Frontend/medhead ./" >> Dockerfile
           echo "CMD [\"npm\", \"start\"]" >> Dockerfile
           docker build -t ${{ secrets.DOCKER_USERNAME }}/medhead-poc-frontend:latest -f Dockerfile .
-          docker push ${{ secrets.DOCKER_USERNAME }}/medhead-poc-frontend:latest
