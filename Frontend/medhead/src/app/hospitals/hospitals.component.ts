@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
+import { environment } from '../../environments/environment';
 
 interface Hospital {
   id: number;
@@ -36,6 +36,7 @@ export class HospitalsComponent implements OnInit {
 
   private apiKey = '203f16bd-d289-452c-9371-b0e042a64ef4';
   private headers = new HttpHeaders().set('X-API-KEY', this.apiKey);
+  private apiUrl = environment.apiUrl;
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.form = this.fb.group({
@@ -49,24 +50,24 @@ export class HospitalsComponent implements OnInit {
     this.loadSpecializations();
   }
 
-  loadHospitals() {
+  loadHospitals(): void {
     console.log(this.headers);
-    this.http.get('http://localhost:9000/hospitals', { headers: new HttpHeaders().set('X-API-KEY', '203f16bd-d289-452c-9371-b0e042a64ef4') }).subscribe((data: any) => {
+    this.http.get(`${this.apiUrl}/hospitals`, { headers: this.headers }).subscribe((data: any) => {
       this.hospitals = data;
     });
   }
 
-  loadSpecializations() {
-    this.http.get('http://localhost:9000/specializations', { headers: this.headers }).subscribe((data: any) => {
+  loadSpecializations(): void {
+    this.http.get(`${this.apiUrl}/specializations`, { headers: this.headers }).subscribe((data: any) => {
       this.specializations = data;
     });
   }
 
-  async onSubmit() {
+  async onSubmit(): Promise<void> {
     const selectedHospital = +this.form.value.hospital;
     const selectedSpecialization = this.form.value.specialization;
     
-    const hospitalsWithSpecialization: any = await this.http.get(`http://localhost:9000/hospitals/specialization/${selectedSpecialization}`, { headers: this.headers }).toPromise();
+    const hospitalsWithSpecialization: any = await this.http.get(`${this.apiUrl}/hospitals/specialization/${selectedSpecialization}`, { headers: this.headers }).toPromise();
     let closestDistance = Infinity;
     let closestHospitalName = "";
     let coordonatesClosestHospital = [];
@@ -90,7 +91,7 @@ export class HospitalsComponent implements OnInit {
         // Introduire un délai avant chaque requête
         await delay(550); // Délai de 550 ms: à modifier selon l'accès à l'API
 
-        const response: any = await this.http.get(`http://localhost:9000/distance/${selectedHospital}/${hospitalId}`, { headers: this.headers }).toPromise();
+        const response: any = await this.http.get(`${this.apiUrl}/distance/${selectedHospital}/${hospitalId}`, { headers: this.headers }).toPromise();
         if (response && response.distances && response.distances[0] && response.distances[0][0] < closestDistance) {
           closestDistance = response.distances[0][0];
           closestHospitalName = hospital.name;
