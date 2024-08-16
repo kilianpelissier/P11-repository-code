@@ -2,18 +2,33 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+
+interface Hospital {
+  id: number;
+  name: string;
+  address: string;
+  // Ajoutez d'autres propriétés pertinentes ici
+}
+
+interface Specialization {
+  id: number;
+  libelle: string;
+  // Ajoutez d'autres propriétés pertinentes ici
+}
+
 @Component({
   selector: 'app-hospitals',
   templateUrl: './hospitals.component.html',
   styleUrls: ['./hospitals.component.css']
 })
 export class HospitalsComponent implements OnInit {
+  
   form: FormGroup;
-  hospitals: any[] = [];
-  specializations: any[] = [];
+  hospitals: Hospital[] = [];
+  specializations: Specialization[] = [];
   closestHospital: string = '';
   distance: number = 0;
-  coordonates: any[] = [];
+  coordonates: string[] = [];
   address: string = '';
   time: number = 0;
   isLoading = false;
