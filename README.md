@@ -121,11 +121,9 @@ mvn test
 
 ## Pipeline CI/CD
 
-Le projet utilise Jenkins pour l'intégration continue et le déploiement.
-Étapes de la Pipeline:
+Le projet utilise Github Actions pour l'intégration continue et le déploiement.
 
-- Checkout : Récupération du code source depuis GitHub.
-- Build : Compilation du projet avec Maven.
-- Test : Exécution des tests unitaires et génération des rapports.
-- Deploy : Déploiement de l'application (simulé).
-- Clean Workspace : Nettoyage de l'espace de travail après l'exécution.
+Le frontend et backend sont testés avant d'être build et push sur dockerhub afin d'etre réutilisable partout:
+
+https://hub.docker.com/r/kilianpelissier/medhead-poc-frontend
+https://hub.docker.com/r/kilianpelissier/medhead-poc-backend
