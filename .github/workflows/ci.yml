@@ -85,7 +85,7 @@ jobs:
 
       - name: Grant execute permission for Maven Wrapper
         run: chmod +x ./Backend/api/mvnw
-        
+
       - name: Build backend JAR
         run: ./mvnw package -DskipTests
         working-directory: ./Backend/api
@@ -99,6 +99,7 @@ jobs:
           echo "COPY ./Backend/api/target/*.jar app.jar" >> Dockerfile
           echo "ENTRYPOINT [\"java\", \"-jar\", \"/app.jar\"]" >> Dockerfile
           docker build -t ${{ secrets.DOCKER_USERNAME }}/medhead-poc-backend:latest -f Dockerfile .
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker push ${{ secrets.DOCKER_USERNAME }}/medhead-poc-backend:latest
 
       - name: Build and push frontend Docker image
@@ -110,3 +111,5 @@ jobs:
           echo "COPY ./Frontend/medhead ./" >> Dockerfile
           echo "CMD [\"npm\", \"start\"]" >> Dockerfile
           docker build -t ${{ secrets.DOCKER_USERNAME }}/medhead-poc-frontend:latest -f Dockerfile .
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          docker push ${{ secrets.DOCKER_USERNAME }}/medhead-poc-frontend:latest
