@@ -1,12 +1,14 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing'; // Ajouté pour les tests HTTP
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        HttpClientTestingModule // Ajouté pour les tests HTTP
       ],
       declarations: [
         AppComponent
@@ -26,10 +28,11 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('medhead');
   });
 
-  it('should render title', () => {
+  it('should contain the navbar element', () => {
     const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
+    fixture.detectChanges();  // This ensures that the DOM is updated with the component's template
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('medhead app is running!');
+    const navElement = compiled.querySelector('app-navbar');
+    expect(navElement).toBeTruthy();  // toBeTruthy checks that the element exists
   });
 });
