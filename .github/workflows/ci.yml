@@ -49,7 +49,6 @@ jobs:
 
   frontend-test:
     runs-on: ubuntu-latest
-    needs: backend-test
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -86,10 +85,19 @@ jobs:
 
       - name: Build and push backend Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/medhead-poc-backend:latest ./Backend/api
+          echo "FROM openjdk:11-jre-slim" > Dockerfile
+          echo "COPY ./Backend/api/target/*.jar app.jar" >> Dockerfile
+          echo "ENTRYPOINT [\"java\", \"-jar\", \"/app.jar\"]" >> Dockerfile
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/medhead-poc-backend:latest -f Dockerfile .
           docker push ${{ secrets.DOCKER_USERNAME }}/medhead-poc-backend:latest
 
       - name: Build and push frontend Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/medhead-poc-frontend:latest ./Frontend
+          echo "FROM node:14-alpine" > Dockerfile
+          echo "WORKDIR /app" >> Dockerfile
+          echo "COPY ./Frontend/medhead/package*.json ./" >> Dockerfile
+          echo "RUN npm install" >> Dockerfile
+          echo "COPY ./Frontend/medhead ./" >> Dockerfile
+          echo "CMD [\"npm\", \"start\"]" >> Dockerfile
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/medhead-poc-frontend:latest -f Dockerfile .
           docker push ${{ secrets.DOCKER_USERNAME }}/medhead-poc-frontend:latest
