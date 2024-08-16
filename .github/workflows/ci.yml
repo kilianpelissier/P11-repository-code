@@ -63,8 +63,12 @@ jobs:
         run: npm install
         working-directory: ./Frontend/medhead
 
+      - name: Install Puppeteer
+        run: npm install puppeteer
+        working-directory: ./Frontend/medhead
+
       - name: Run frontend tests
-        run: npm test -- --watch=false
+        run: npm test -- --watch=false --browsers=ChromeHeadless
         working-directory: ./Frontend/medhead
 
   publish:
