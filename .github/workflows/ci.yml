@@ -34,7 +34,7 @@ jobs:
 
       - name: Grant execute permission for Maven Wrapper
         run: chmod +x ./Backend/api/mvnw
-        
+
       - name: Compile the project
         run: ./mvnw compile
         working-directory: ./Backend/api
@@ -64,7 +64,7 @@ jobs:
         working-directory: ./Frontend/medhead
 
       - name: Run frontend tests
-        run: npm test
+        run: npm test -- --watch=false
         working-directory: ./Frontend/medhead
 
   publish:
