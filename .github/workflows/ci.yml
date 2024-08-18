@@ -95,21 +95,12 @@ jobs:
 
       - name: Build and push backend Docker image
         run: |
-          echo "FROM openjdk:11-jre-slim" > Dockerfile
-          echo "COPY ./Backend/api/target/*.jar app.jar" >> Dockerfile
-          echo "ENTRYPOINT [\"java\", \"-jar\", \"/app.jar\"]" >> Dockerfile
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/medhead-poc-backend:latest -f Dockerfile .
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/medhead-poc-backend:latest -f ./Backend/Dockerfile .
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker push ${{ secrets.DOCKER_USERNAME }}/medhead-poc-backend:latest
 
       - name: Build and push frontend Docker image
         run: |
-          echo "FROM node:14-alpine" > Dockerfile
-          echo "WORKDIR /app" >> Dockerfile
-          echo "COPY ./Frontend/medhead/package*.json ./" >> Dockerfile
-          echo "RUN npm install" >> Dockerfile
-          echo "COPY ./Frontend/medhead ./" >> Dockerfile
-          echo "CMD [\"npm\", \"start\"]" >> Dockerfile
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/medhead-poc-frontend:latest -f Dockerfile .
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/medhead-poc-frontend:latest -f ./Frontend/Dockerfile .
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker push ${{ secrets.DOCKER_USERNAME }}/medhead-poc-frontend:latest
