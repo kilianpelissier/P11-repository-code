@@ -13,7 +13,7 @@ public class FilterConfig {
     public FilterRegistrationBean<ApiKeyFilter> apiKeyFilter() {
         FilterRegistrationBean<ApiKeyFilter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(new ApiKeyFilter());
-        registrationBean.addUrlPatterns("/*"); // Apply filter to all URL patterns
+        registrationBean.addUrlPatterns("/ "); // Apply filter to all URL patterns
         return registrationBean;
     }
 }
