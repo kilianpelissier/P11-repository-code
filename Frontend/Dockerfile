@@ -1,6 +1,6 @@
 FROM node:14-alpine
 WORKDIR /app
-COPY ./medhead/package*.json ./
+COPY ./Frontend/medhead/package*.json ./
 RUN npm install
-COPY ./medhead ./
+COPY ./Frontend/medhead ./
 CMD ["npm", "start"]

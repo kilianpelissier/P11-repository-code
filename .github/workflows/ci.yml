@@ -39,10 +39,6 @@ jobs:
         run: ./mvnw compile
         working-directory: ./Backend/api
 
-      - name: Install dependencies
-        run: ./mvnw install -DskipTests
-        working-directory: ./Backend/api
-
       - name: Run backend tests
         run: ./mvnw test
         working-directory: ./Backend/api
